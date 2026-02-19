@@ -1,5 +1,5 @@
 # INFO
-`This project is for creating a program that can download videos from YouTube via a link to a specified local folder.`
+`YouTube video summarizer, this program allows the program to access a video and immediately provide a summary of the video (without playing it)`
 
 *Programming Language* : Golang
 
