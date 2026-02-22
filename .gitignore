@@ -1,3 +1,4 @@
 *.exe
 summarizer_cht_venv/
 testing_hugo/
+TESTING/
