@@ -20,26 +20,6 @@ import (
 		5 = 4 (read) + 1 (execute)				-> Other | r-x
 */
 
-
-
-
-const simple_HTML = `<html>
-<head><title>{{ .title }}</title></head>
-<goat 
-    $key_status = true
-/>
-<body>
-    <h1{{ .title }}</h1>
-    {{ .content }}
-</body>
-</html>`
-
-const simple_MD = `---
-$key_file : index.html
-title : Welcome to GOat
----
-content : Try to make a simple web with simple way`
-
 func main() {
 	// Taking all the argumen/command as a string[] type
 	m_args := os.Args[1:]
@@ -54,7 +34,10 @@ func main() {
 		-> goat
 	*/
 	m_command := m_args[0]
+	// s_command := m_args[1]
 	
+	// fmt.Println(m_command, " : ", s_command)
+
 	switch m_command {
 	case "init" :
 		init_command()
@@ -97,6 +80,7 @@ func init_command() {
 	// taking input
 	m_args := os.Args[1:]
 	flag_cmmd := m_args[1]
+	// fmt.Println("\n\n\nHASIL : ", flag_cmmd)
 	result := command.Process_input(flag_cmmd)
 	fmt.Println(result)
 }

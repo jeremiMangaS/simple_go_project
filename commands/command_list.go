@@ -1,26 +1,51 @@
 package command
 
-import "os"
+import (
+	"fmt"
+	"os"
+	"simple_go_project/structure_handling"
+)
 
 func Process_input(flag string) string {
 	// var result string
-	for key, value := range command_map() {
-		if flag == key {
-			return value
-		}
+	// for key, value := range command_map() {
+	// 	if flag == key {
+	// 		// return value
+	// 		// fmt.Println(key, " : ", flag, " : ", value)
+	// 		fmt.Printf("%s | %s | %s", flag, value, key)
+	// 		// continue
+	// 	} //else {
+	// 	// 	return value
+	// 	// }
+	// }
+	key, values := command_map()[flag]
+	if values == true {
+		// result := key()
+		return key()
 	}
 	return help_l()
 } 
 
-func command_map() map[string]string {
-	cmmnd_map := map[string] string {
-		"--simple-basic" : simple_basic_handling(),
-		"--simple" : simple_handling(),
+func command_map() map[string]func() string {
+	return map[string]func() string {
+		"--simple-basic" : simple_basic_handling,
+		"--simple" : simple_handling,
+		// "--simple-basic" : "simple basic",
+		// "--simple" : "simple",
 	}
-	return cmmnd_map
 }
 
 func simple_basic_handling() string {
+	// for testing
+	os.Mkdir("project", 0755)
+	// creating file
+	html := "project/main.html"
+	md := "project/main.md"
+	json := "project/conf.json"
+	structure.Create_files(html, structure.Simple_HTML)
+	structure.Create_files(md, structure.Simple_MD)
+	structure.Create_files(json, "{}")
+	fmt.Println("Sucessfuly creating : ", html, "\n", md, "\n", json, "\nat project/\nreturn information : success")
 	return "success simple basic"
 }
 
@@ -31,24 +56,4 @@ func simple_handling() string {
 func help_l() string {
 	help := "command/flag not found, use 'goat --help' for more information"
 	return help
-}
-
-func create_files(file_name string, data string) {
-	// 0777
-	/*
-		0644 
-			0 - oktal
-			6 = 4 (read) + 2 (write)	-> owner | rw-
-			4 = 4 (read)				-> group | r--
-			4 = 4 (read)				-> other | r--
-	*/
-	err := os.WriteFile(file_name, []byte(data), 0644)
-	check(err)
-}
-
-func check(e error) {
-	// checking error
-	if e != nil {
-		panic(e)
-	}
 }
