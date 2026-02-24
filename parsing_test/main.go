@@ -31,6 +31,12 @@ func main() {
 }
 
 func parsing_data(d_head string, d_body string) {
+	// try to combine the data between head and body
+	// data_t_map := make(map[string]string)
+	// mix
+	data_t := append(strings.Split(d_head, "\n"), strings.Split(d_body, "\n")...)
+	fmt.Println(data_t)
+
 	fmt.Print("========================================\n")
 	line_hf := strings.Split(d_head, "\n")
 	line_bf := strings.Split(d_body, "\n")
