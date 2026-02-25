@@ -5,13 +5,13 @@ import (
 	"os"
 )
 
-func command_map() map[string]string{
+func command_map() map[string]string {
 	// Map for holding all the command flags
-	command_list := map[string] string {
+	command_list := map[string]string{
 		// Values of the command flags
-		"--simple-basic" : simple_bsc_handling(),
-		"--simple" : simple_handling(),
-	} 
+		"--simple-basic": simple_bsc_handling(),
+		"--simple":       simple_handling(),
+	}
 	return command_list
 }
 

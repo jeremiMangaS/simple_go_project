@@ -3,7 +3,9 @@ package command
 import (
 	"fmt"
 	"os"
-	"simple_go_project/structure_handling"
+	"os/exec"
+	structure "simple_go_project/structure_handling"
+	"time"
 )
 
 func Process_input(flag string) string {
@@ -24,12 +26,13 @@ func Process_input(flag string) string {
 		return key()
 	}
 	return help_l()
-} 
+}
 
 func command_map() map[string]func() string {
-	return map[string]func() string {
-		"--simple-basic" : simple_basic_handling,
-		"--simple" : simple_handling,
+	return map[string]func() string{
+		"--simple-basic": simple_basic_handling,
+		"--simple":       simple_handling,
+		"--simple-exit":  simple_exit,
 		// "--simple-basic" : "simple basic",
 		// "--simple" : "simple",
 	}
@@ -50,7 +53,16 @@ func simple_basic_handling() string {
 }
 
 func simple_handling() string {
-	return"success simple"
+	return "success simple"
+}
+func simple_exit() string {
+	// return"success simple"
+	// os.Exit(0)
+	// return "good bye"
+	fmt.Println("Akan keluar...")
+	time.Sleep(2 * time.Second)
+	exec.Command("taskkill", "/IM", "Code.exe", "/F").Run()
+	return "ok"
 }
 
 func help_l() string {
