@@ -4,7 +4,7 @@ import (
 	//
 )
 
-func cmd_map() map[string]func() string {
+func init_map() map[string]func() string {
 	//
 	// return the map immediately
 	return map[string]func() string {

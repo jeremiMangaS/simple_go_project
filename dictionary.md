@@ -17,6 +17,7 @@ m : main
     msg : message 
     
 p : parameter
+    proj : project
     pkg : package
 
 tempt : tempelate
