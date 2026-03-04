@@ -19,6 +19,8 @@ func Check_path(path_args string) {
 }
 
 func read_fr(fr_path string) {
+	ext_html := ".html"
+	// ext-md := ".md"
 	//
 	// WalkDir has function as it parameters
 	// path string : file in process
@@ -32,14 +34,20 @@ func read_fr(fr_path string) {
 		}
 		// IsDir() : checking is the current thing is folder or not, returning true  or false
 		// Ext() : taking file extension (exm : .txt, .gp, .md, etc)
-		if !d.IsDir() && filepath.Ext(path) == ".html" {
-			fmt.Println("HTML ==> ", path)
-		} else if !d.IsDir() && filepath.Ext(path) == ".md" {
-			fmt.Println("MD ==> ", path)
-		} else if !d.IsDir() && filepath.Ext(path) == ".json" {
-			fmt.Println("JSON ==> ", path)
+		if !d.IsDir() && filepath.Ext(path) == ext_html {
+			info, errr := d.Info()
+			if errr != nil {
+				return errr
+			}
+			f_name := info.Name()
+			var html_obj *HTML_f
+			html_obj.F_Path = path
+			html_obj.F_name = f_name
+			html_obj.F_Extension = ext_html
+			F_read_lists.HTML_files[html_obj]
 		}
 
 		return err
 	})
 }
+
