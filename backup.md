@@ -155,3 +155,74 @@ func f_manage(fr_path string, path string, d fs.DirEntry, ext string) {
 		html_obj.Is_Root = (parent_fr == fr_path)
 	}
 }
+
+
+
+
+
+
+
+
+===========================================================================
+
+// func manage_md_obj_f(path string, fr_path string) MD_f {
+// 	//
+// 	// full path, file name, file extension, folder parent, is root
+// 	f_name := filepath.Base(path)
+// 	f_ext := filepath.Ext(path)
+// 	fr_parent := filepath.Base(filepath.Dir(path))
+// 	is_root := (fr_parent == fr_path)
+
+// 	// read the content of the file
+// 	data, err := os.ReadFile(path)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	f_content := string(data)
+
+// 	return MD_f{
+// 		//
+// 		Base_structure_Information: Base_structure_Information{
+// 			F_Path: path,
+// 			F_name: f_name,
+// 			F_Extension: f_ext,
+// 			Fr_Parent: fr_parent,
+// 			Is_Root: is_root,
+// 			F_content: f_content,
+// 		},
+// 	}
+// }
+
+
+
+
+===========================================================================
+
+func manage_html_obj_f(path string, fr_path string) HTML_f {
+	//
+	// full path, file name, file extension, folder parent, is root
+	f_name := filepath.Base(path)
+	f_ext := filepath.Ext(path)
+	fr_parent := filepath.Base(filepath.Dir(path))
+	is_root := (fr_parent == fr_path)
+
+	// read the content of the file
+	data, err := os.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+	f_content := string(data)
+
+
+	return HTML_f{
+		//
+		Base_structure_Information: Base_structure_Information{
+			F_Path: path,
+			F_name: f_name,
+			F_Extension: f_ext,
+			Fr_Parent: fr_parent,
+			Is_Root: is_root,
+			F_content: f_content,
+		},
+	}
+}

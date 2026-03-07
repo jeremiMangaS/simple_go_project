@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"sync"
 	"time"
+	"os"
 )
 
 //
@@ -64,11 +65,15 @@ func central_analys_g(fr_path string) {
 		for path := range path_chan {
 			ext_f := filepath.Ext(path)
 			if ext_f == ext_html {
-				new_obj_f := manage_html_obj_f(path, fr_path)
+				new_obj_f := HTML_f{
+					Base_structure_Information: manage_obj_f(path, fr_path),
+				}
 				html_result_chan <- new_obj_f
 			}
 			if ext_f == ext_md {
-				new_obj_f := manage_md_obj_f(path, fr_path)
+				new_obj_f := MD_f{
+					Base_structure_Information: manage_obj_f(path, fr_path),
+				}
 				md_result_chan <- new_obj_f
 			}
 		}
@@ -97,14 +102,15 @@ func central_analys_g(fr_path string) {
 
 	defer fmt.Println(html_obj_l)
 	defer fmt.Println("==============================")
-	defer fmt.Println(html_obj_l)
+	defer fmt.Println(md_obj_l)
 	
 	duration := time.Since(start)
 	fmt.Println("TIME : ", duration)
 	//
 }
 
-func manage_html_obj_f(path string, fr_path string) HTML_f {
+
+func manage_obj_f(path string, fr_path string) Base_structure_Information {
 	//
 	// full path, file name, file extension, folder parent, is root
 	f_name := filepath.Base(path)
@@ -112,34 +118,19 @@ func manage_html_obj_f(path string, fr_path string) HTML_f {
 	fr_parent := filepath.Base(filepath.Dir(path))
 	is_root := (fr_parent == fr_path)
 
-	return HTML_f{
-		//
-		Base_structure_Information: Base_structure_Information{
-			F_Path: path,
-			F_name: f_name,
-			F_Extension: f_ext,
-			Fr_Parent: fr_parent,
-			Is_Root: is_root,
-		},
+	// read the content of the file
+	data, err := os.ReadFile(path)
+	if err != nil {
+		panic(err)
 	}
-}
+	f_content := string(data)
 
-func manage_md_obj_f(path string, fr_path string) MD_f {
-	//
-	// full path, file name, file extension, folder parent, is root
-	f_name := filepath.Base(path)
-	f_ext := filepath.Ext(path)
-	fr_parent := filepath.Base(filepath.Dir(path))
-	is_root := (fr_parent == fr_path)
-
-	return MD_f{
-		//
-		Base_structure_Information: Base_structure_Information{
-			F_Path: path,
-			F_name: f_name,
-			F_Extension: f_ext,
-			Fr_Parent: fr_parent,
-			Is_Root: is_root,
-		},
+	return Base_structure_Information{
+		F_Path: path,
+		F_name: f_name,
+		F_Extension: f_ext,
+		Fr_Parent: fr_parent,
+		Is_Root: is_root,
+		F_content: f_content,
 	}
 }

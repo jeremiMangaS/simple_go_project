@@ -7,6 +7,7 @@ type Base_structure_Information struct {
 	F_Extension string		// File extension (.html, .md) [v]
 	Fr_Parent string		// Parent folder name 
 	Is_Root bool 			// is it at root? 
+	F_content string			// file content
 }
 
 type MD_f struct {
