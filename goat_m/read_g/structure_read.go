@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"path/filepath"
 	"sync"
+	"time"
 )
 
 //
@@ -21,12 +22,15 @@ func Check_path(path_args string) {
 }
 
 func central_analys_g(fr_path string) {
+	// SPEED TESTING
+	start := time.Now()
+
 	//
-	var waitg_g sync.WaitGroup
-	waitg_g.Add(4)
+	var working_wg sync.WaitGroup
+	var collect_wg sync.WaitGroup
 
 	// channels
-	path_chan := make(chan string)
+	path_chan := make(chan string, 100)
 	html_result_chan := make(chan HTML_f)
 	md_result_chan := make(chan MD_f)
 	// defer close(html_result_chan)
@@ -52,10 +56,10 @@ func central_analys_g(fr_path string) {
 		})
 		// closing the channel
 		close(path_chan)
-		defer waitg_g.Done()
 	}()
 	
 	// file object manager
+	working_wg.Add(1)
 	go func() {
 		for path := range path_chan {
 			ext_f := filepath.Ext(path)
@@ -68,31 +72,35 @@ func central_analys_g(fr_path string) {
 				md_result_chan <- new_obj_f
 			}
 		}
-		defer close(html_result_chan)
-		defer close(md_result_chan)
-		defer waitg_g.Done()
+		defer working_wg.Done()
 	}()
 
 	// grouping manager
+	collect_wg.Add(2)
 	go func() {
 		for obj := range html_result_chan {
 			html_obj_l = append(html_obj_l, obj)
 		}
-		defer waitg_g.Done()
+		defer collect_wg.Done()
 	}()
 	go func() {
 		for obj := range md_result_chan {
 			md_obj_l = append(md_obj_l, obj)
 		}
-		defer waitg_g.Done()
+		defer collect_wg.Done()
 	}()
-	
-	waitg_g.Wait()
+
+	working_wg.Wait()
+	close(html_result_chan)
+	close(md_result_chan)
+	collect_wg.Wait()
 
 	defer fmt.Println(html_obj_l)
 	defer fmt.Println("==============================")
 	defer fmt.Println(html_obj_l)
-
+	
+	duration := time.Since(start)
+	fmt.Println("TIME : ", duration)
 	//
 }
 
