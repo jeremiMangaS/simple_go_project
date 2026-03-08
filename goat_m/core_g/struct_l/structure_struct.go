@@ -1,4 +1,4 @@
-package read_g
+package struct_l
 
 type Base_structure_Information struct {
 	//
@@ -7,7 +7,7 @@ type Base_structure_Information struct {
 	F_Extension string		// File extension (.html, .md) [v]
 	Fr_Parent string		// Parent folder name 
 	Is_Root bool 			// is it at root? 
-	F_content string			// file content
+	F_content string		// file content
 }
 
 type MD_f struct {
@@ -18,6 +18,7 @@ type MD_f struct {
 type HTML_f struct {
 	// include
 	Base_structure_Information
+	Goat_tag string 		// goat gtml tag information
 }
 
 type F_read_lists struct {

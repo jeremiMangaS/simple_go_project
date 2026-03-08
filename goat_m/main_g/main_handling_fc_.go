@@ -8,6 +8,7 @@ import (
 	"github.com/jeremiMangaS/simple_go_project/goat_m/main_g/cmd_handling"
 	// "github.com/jeremiMangaS/simple_go_project/goat_m/build_g"
 	"github.com/jeremiMangaS/simple_go_project/goat_m/read_g"
+	core_prc "github.com/jeremiMangaS/simple_go_project/goat_m/core_g/process_g"
 )
 
 
@@ -41,7 +42,9 @@ func build_handling() {
 
 	// taking the path
 	path_args := m_args[1]
-	read_g.Check_path(path_args)
+	html_obj_l, md_obj_l := read_g.Central_analys_g(path_args)
+	//
+	core_prc.Prc_parsing(html_obj_l, md_obj_l)
 }
 
 
