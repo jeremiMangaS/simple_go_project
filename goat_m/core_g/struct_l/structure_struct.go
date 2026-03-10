@@ -13,12 +13,13 @@ type Base_structure_Information struct {
 type MD_f struct {
 	// include
 	Base_structure_Information
+	Gmi_map map[string]string
 }
 
 type HTML_f struct {
 	// include
 	Base_structure_Information
-	Goat_tag string 		// goat gtml tag information
+	Ghi_map map[string]string // ghi map version information
 }
 
 type F_read_lists struct {
