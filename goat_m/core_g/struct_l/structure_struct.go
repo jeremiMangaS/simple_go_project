@@ -1,4 +1,4 @@
-package struct_l
+	package struct_l
 
 type Base_structure_Information struct {
 	//
@@ -13,7 +13,7 @@ type Base_structure_Information struct {
 type MD_f struct {
 	// include
 	Base_structure_Information
-	Gmi_map map[string]string
+	Gmi_map map[string]string // gmi map version information
 }
 
 type HTML_f struct {
