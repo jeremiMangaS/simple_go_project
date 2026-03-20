@@ -2,7 +2,7 @@ package process_g
 
 import (
 	//
-	"fmt"
+	// "fmt"
 
 	// "fmt"
 
@@ -26,10 +26,10 @@ func Prc_parsing(html_obj_l []struct_read.HTML_f, md_obj_l []struct_read.MD_f) {
 	}
 
 	// fmt.Println(html_obj_l)
-	fmt.Println("========== PRINT =============")
-	for i := range md_obj_l {
-		fmt.Println(md_obj_l[i].Gmi_map)
-	}
+	// fmt.Println("========== PRINT =============")
+	// for i := range md_obj_l {
+	// 	fmt.Println(md_obj_l[i].Gmi_map)
+	// }
 
 
 	// // MD 

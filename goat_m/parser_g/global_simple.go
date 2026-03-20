@@ -22,23 +22,27 @@ func Matching_prc(html_obj_l []struct_read.HTML_f, md_obj_l []struct_read.MD_f) 
 		// 
 		md := &md_obj_l[i]
 		key_target := md.Gmi_map["$key_file"]
+		// fmt.Println("TARGET KEY : ", key_target)
 
 		k, v := html_lookup[key_target]
 		
 		if !v {
-			fmt.Println("Skipped file : ", md.F_name, " <==> ", key_target)
+			// fmt.Println("Skipped file : ", md.F_name, " <==> ", key_target)
 			continue
 		}
 
 		if md.Fr_Parent == k.Fr_Parent {
-			fmt.Println("Same Folder : " , md.Fr_Parent, " <===> ", k.Fr_Parent)
+			// fmt.Println("Same Folder : " , md.Fr_Parent, " <===> ", k.Fr_Parent)
 			//
-			// fmt.Println(build_out.Build_Page(md, k), "\n")
+			// build_out.Build_Page(md, k)
 			res := build_out.Build_Page(md, k)
-			fmt.Println(res)
+			fmt.Println("THIS IS THE RESULT : \n", res)
 		}
-
 		// if the file is in the different folder
 		//
 	}
+
+	// for i := range html_obj_l {
+	// 	fmt.Println(html_obj_l[i].F_content)
+	// }
 }
